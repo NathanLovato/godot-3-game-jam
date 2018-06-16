@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 radius = 31.9831
 
-[node name="Fireball" type="Area2D"]
+[node name="Fireball" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -31,6 +31,8 @@ SPEED = 1400.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 shape = SubResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
 
 [connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
 

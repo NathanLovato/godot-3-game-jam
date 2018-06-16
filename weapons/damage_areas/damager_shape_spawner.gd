@@ -14,6 +14,8 @@ func set_active(value):
 	else:
 		$SpawnTimer.stop()
 
+func _physics_process(delta):
+	position = position
 
 func _on_SpawnTimer_timeout():
 	add_child(Collider.instance())

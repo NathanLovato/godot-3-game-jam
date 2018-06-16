@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var weapon_current = null
 onready var weapons = {
@@ -21,13 +21,13 @@ func _set_weapon_active(weapon_name=""):
 		print(weapon_current.name)
 
 	if not weapon_current:
-		set_process(false)
+		set_physics_process(false)
 		return
 
-	set_process(true)
+	set_physics_process(true)
 	weapon_current.enter()
 
-func _process(delta):
+func _physics_process(delta):
 	weapon_current.update(delta)
 
 func _input(event):

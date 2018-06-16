@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 signal finished(next_state_name)
 

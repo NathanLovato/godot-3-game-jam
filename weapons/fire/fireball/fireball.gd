@@ -8,6 +8,13 @@ func _physics_process(delta):
 	position += direction * SPEED * delta
 
 func _on_Fireball_body_entered(body):
+	explode()
+
+func _on_Fireball_area_entered(area):
+	print('hey')
+	explode()
+
+func explode():
 	set_physics_process(false)
 	$Fireball.active = false
 	
