@@ -1,6 +1,7 @@
 extends Node
 
 signal health_changed
+signal took_damage(amount)
 signal health_depleted
 signal status_changed
 
@@ -39,7 +40,7 @@ func take_damage_from(source):
 		emit_signal("health_depleted")
 		return
 	else:
-		emit_signal("health_changed", health)
+		emit_signal("took_damage", source.damage)
 	print("%s got hit and took %s damage. Health: %s/%s" % [get_name(), source.damage, health, max_health])
 
 	if not source.effect:

@@ -1,17 +1,18 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://prototype/player.png" type="Texture" id=2]
-[ext_resource path="res://actors/player/weapon/weapon_pivot.gd" type="Script" id=3]
+[ext_resource path="res://weapons/fire/FireStateMachine.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/hit_box/HitBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/player/hitbox_shape.tres" type="Shape2D" id=5]
 [ext_resource path="res://actors/health/Health.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/player/player_state_machine.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/states/motion/on_ground/idle.gd" type="Script" id=8]
-[ext_resource path="res://actors/player/states/motion/on_ground/move.gd" type="Script" id=9]
+[ext_resource path="res://actors/player/states/motion/idle.gd" type="Script" id=8]
+[ext_resource path="res://actors/player/states/motion/move.gd" type="Script" id=9]
 [ext_resource path="res://actors/player/states/combat/stagger.gd" type="Script" id=10]
-[ext_resource path="res://utils/states/state.gd" type="Script" id=11]
-[ext_resource path="res://actors/player/states/die.gd" type="Script" id=12]
+[ext_resource path="res://actors/player/states/motion/dash.gd" type="Script" id=11]
+[ext_resource path="res://utils/states/state.gd" type="Script" id=12]
+[ext_resource path="res://actors/player/states/die.gd" type="Script" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -56,24 +57,12 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("FirePivot:scale")
+tracks/3/path = NodePath("Skin/Body:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Skin/Body:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -140,8 +129,9 @@ length = 1.0
 loop = false
 step = 0.1
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
+position = Vector2( 865.331, 529.041 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 2
@@ -176,15 +166,9 @@ texture = ExtResource( 2 )
 offset = Vector2( 1.40758, -3.05176e-05 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="FirePivot" type="Position2D" parent="." index="2"]
+[node name="WeaponStateMachine" parent="." index="2" instance=ExtResource( 3 )]
 
-editor/display_folded = true
-position = Vector2( 0, -25.4687 )
-script = ExtResource( 3 )
-
-[node name="Offset" type="Position2D" parent="FirePivot" index="0"]
-
-position = Vector2( 64, 0 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
 
@@ -217,32 +201,50 @@ script = ExtResource( 8 )
 [node name="Move" type="Node" parent="StateMachine" index="1"]
 
 script = ExtResource( 9 )
-MAX_SPEED = 700.0
+SPEED_NORMAL = 700
+SPEED_SLOW = 300.0
 
-[node name="MoveSlower" type="Node" parent="StateMachine" index="2"]
-
-script = ExtResource( 9 )
-MAX_SPEED = 400.0
-
-[node name="Stagger" type="Node" parent="StateMachine" index="3"]
+[node name="Stagger" type="Node" parent="StateMachine" index="2"]
 
 script = ExtResource( 10 )
 
-[node name="Dash" type="Node" parent="StateMachine" index="4"]
+[node name="Dash" type="Node" parent="StateMachine" index="3"]
 
 script = ExtResource( 11 )
+SPEED = 1300
+MAX_COUNT = 2
 
-[node name="Explode" type="Node" parent="StateMachine" index="5"]
+[node name="Timer" type="Timer" parent="StateMachine/Dash" index="0"]
 
-script = ExtResource( 11 )
+process_mode = 1
+wait_time = 0.15
+one_shot = true
+autostart = false
 
-[node name="Die" type="Node" parent="StateMachine" index="6"]
+[node name="CooldownTimer" type="Timer" parent="StateMachine/Dash" index="1"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = true
+autostart = false
+
+[node name="Explode" type="Node" parent="StateMachine" index="4"]
 
 script = ExtResource( 12 )
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[node name="Die" type="Node" parent="StateMachine" index="5"]
+
+script = ExtResource( 13 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
 
 [connection signal="health_depleted" from="Health" to="." method="_on_Health_health_depleted"]
+
+[connection signal="took_damage" from="Health" to="StateMachine" method="_on_Health_took_damage"]
+
+[connection signal="timeout" from="StateMachine/Dash/Timer" to="StateMachine/Dash" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="StateMachine/Dash/CooldownTimer" to="StateMachine/Dash" method="_on_CooldownTimer_timeout"]
 
 
 [editable path="HitBox"]
