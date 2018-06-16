@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/fire/fireball/fireball_thrower.gd" type="Script" id=1]
+[ext_resource path="res://weapons/fire/fireball/Fireball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://weapons/fire/fireball/FireballBig.tscn" type="PackedScene" id=3]
+
+
+
+
+[node name="FireballThrower" type="Node2D" index="0"]
+
+position = Vector2( 928, 576 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+Fireball = ExtResource( 2 )
+FireballBig = ExtResource( 3 )
+CHARGE_THRESHOLD = 0.5
+
+[node name="CooldownTimer" type="Timer" parent="." index="0"]
+
+process_mode = 0
+wait_time = 0.2
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+
+
