@@ -12,11 +12,9 @@ var status = null
 const POISON_DAMAGE = 1
 var poison_cycles = 0
 
-
 func _ready():
 	health = max_health
 	$PoisonTimer.connect('timeout', self, '_on_PoisonTimer_timeout')
-
 
 func _change_status(new_status):
 	match status:
@@ -29,7 +27,6 @@ func _change_status(new_status):
 			$PoisonTimer.start()
 	status = new_status
 	emit_signal('status_changed', new_status)
-
 
 func take_damage_from(source):
 	if health == 0 or status == GlobalConstants.STATUS_INVINCIBLE:
@@ -50,13 +47,11 @@ func take_damage_from(source):
 			_change_status(GlobalConstants.STATUS_POISONED)
 			poison_cycles = source.effect[1]
 
-
 func heal(amount):
 	health += amount
 	health = max(health, max_health)
 	emit_signal("health_changed", health)
 #	print("%s got healed by %s points. Health: %s/%s" % [get_name(), amount, health, max_health])
-
 
 func _on_PoisonTimer_timeout():
 	take_damage(POISON_DAMAGE)
@@ -65,4 +60,3 @@ func _on_PoisonTimer_timeout():
 		_change_status(GlobalConstants.STATUS_NONE)
 		return
 	$PoisonTimer.start()
-

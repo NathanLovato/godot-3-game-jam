@@ -1,18 +1,20 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://prototype/player.png" type="Texture" id=2]
 [ext_resource path="res://weapons/fire/FireStateMachine.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/hit_box/HitBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/player/hitbox_shape.tres" type="Shape2D" id=5]
-[ext_resource path="res://actors/health/Health.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/player/player_state_machine.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/states/motion/idle.gd" type="Script" id=8]
-[ext_resource path="res://actors/player/states/motion/move.gd" type="Script" id=9]
-[ext_resource path="res://actors/player/states/combat/stagger.gd" type="Script" id=10]
-[ext_resource path="res://actors/player/states/motion/dash.gd" type="Script" id=11]
-[ext_resource path="res://utils/states/state.gd" type="Script" id=12]
-[ext_resource path="res://actors/player/states/die.gd" type="Script" id=13]
+[ext_resource path="res://actors/water_detector/WaterDetector.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/temperature/Temperature.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/health/Health.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/player/player_state_machine.gd" type="Script" id=9]
+[ext_resource path="res://actors/player/states/motion/idle.gd" type="Script" id=10]
+[ext_resource path="res://actors/player/states/motion/move.gd" type="Script" id=11]
+[ext_resource path="res://actors/player/states/combat/stagger.gd" type="Script" id=12]
+[ext_resource path="res://actors/player/states/motion/dash.gd" type="Script" id=13]
+[ext_resource path="res://utils/states/state.gd" type="Script" id=14]
+[ext_resource path="res://actors/player/states/die.gd" type="Script" id=15]
 
 [sub_resource type="Animation" id=1]
 
@@ -186,31 +188,41 @@ collision_mask = 16
 position = Vector2( 0, -15.9878 )
 shape = ExtResource( 5 )
 
-[node name="Health" parent="." index="5" instance=ExtResource( 6 )]
+[node name="WaterDetector" parent="." index="5" instance=ExtResource( 6 )]
+
+collision_layer = 0
+collision_mask = 1024
+
+[node name="Temperature" parent="." index="6" instance=ExtResource( 7 )]
+
+BASE_COOLING_RATE = 4.0
+
+[node name="Health" parent="." index="7" instance=ExtResource( 8 )]
 
 max_health = 20
 
-[node name="StateMachine" type="Node" parent="." index="6"]
+[node name="StateMachine" type="Node" parent="." index="8"]
 
-script = ExtResource( 7 )
+editor/display_folded = true
+script = ExtResource( 9 )
 
 [node name="Idle" type="Node" parent="StateMachine" index="0"]
 
-script = ExtResource( 8 )
+script = ExtResource( 10 )
 
 [node name="Move" type="Node" parent="StateMachine" index="1"]
 
-script = ExtResource( 9 )
+script = ExtResource( 11 )
 SPEED_NORMAL = 700
 SPEED_SLOW = 300.0
 
 [node name="Stagger" type="Node" parent="StateMachine" index="2"]
 
-script = ExtResource( 10 )
+script = ExtResource( 12 )
 
 [node name="Dash" type="Node" parent="StateMachine" index="3"]
 
-script = ExtResource( 11 )
+script = ExtResource( 13 )
 SPEED = 1300
 MAX_COUNT = 2
 
@@ -230,13 +242,19 @@ autostart = false
 
 [node name="Explode" type="Node" parent="StateMachine" index="4"]
 
-script = ExtResource( 12 )
+script = ExtResource( 14 )
 
 [node name="Die" type="Node" parent="StateMachine" index="5"]
 
-script = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
+
+[connection signal="weapon_changed" from="WeaponStateMachine" to="Temperature" method="_on_WeaponStateMachine_weapon_changed"]
+
+[connection signal="water_entered" from="WaterDetector" to="Temperature" method="_on_WaterDetector_water_entered"]
+
+[connection signal="water_exited" from="WaterDetector" to="Temperature" method="_on_WaterDetector_water_exited"]
 
 [connection signal="health_depleted" from="Health" to="." method="_on_Health_health_depleted"]
 

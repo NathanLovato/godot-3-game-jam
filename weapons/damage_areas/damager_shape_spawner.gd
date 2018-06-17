@@ -1,4 +1,4 @@
-extends Area2D
+extends "damage_source.gd"
 
 signal toggled_active
 

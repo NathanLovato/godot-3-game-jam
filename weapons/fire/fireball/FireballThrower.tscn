@@ -4,14 +4,13 @@
 [ext_resource path="res://weapons/fire/fireball/Fireball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://weapons/fire/fireball/FireballBig.tscn" type="PackedScene" id=3]
 
-
-
-
-[node name="FireballThrower" type="Node2D" index="0"]
+[node name="FireballThrower" type="Node2D"]
 
 position = Vector2( 928, 576 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+TEMPERATURE_COST = 0.0
+TEMPERATURE_RATE = 0.0
 Fireball = ExtResource( 2 )
 FireballBig = ExtResource( 3 )
 CHARGE_THRESHOLD = 0.5

@@ -1,4 +1,4 @@
-extends "res://utils/states/state2d.gd"
+extends "res://weapons/weapon.gd"
 
 export(PackedScene) var Fireball
 export(PackedScene) var FireballBig

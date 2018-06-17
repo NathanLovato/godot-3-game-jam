@@ -1,4 +1,4 @@
-extends "res://utils/states/state2d.gd"
+extends "../../weapon.gd"
 
 func enter():
 	set_active(true)

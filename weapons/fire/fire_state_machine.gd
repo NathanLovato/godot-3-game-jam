@@ -1,5 +1,7 @@
 extends Node2D
 
+signal weapon_changed(weapon)
+
 var weapon_current = null
 onready var weapons = {
 	"": null,
@@ -17,8 +19,7 @@ func _set_weapon_active(weapon_name=""):
 	if weapon_current:
 		weapon_current.exit()
 	weapon_current = weapons[weapon_name]
-	if weapon_current:
-		print(weapon_current.name)
+	emit_signal("weapon_changed", weapon_current)
 
 	if not weapon_current:
 		set_physics_process(false)
@@ -35,13 +36,6 @@ func _input(event):
 		weapon_current.handle_input(event)
 		return
 
-	# input L + R should:
-	# cancel flamethrow/fireball
-	# go to firewave
-#	if event.is_action_pressed("mouse_left") and weapon_current == $Flamethrower:
-#		_set_weapon_active("wave")
-#	elif event.is_action_pressed("mouse_right") and weapon_current == $FireballThrower:
-#		_set_weapon_active("wave")
 	if event.is_action_pressed("mouse_left"):
 		_set_weapon_active("fireball")
 	elif event.is_action_pressed("mouse_right"):

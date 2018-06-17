@@ -66,6 +66,7 @@ mouse_right=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"reso
 2d_physics/layer_4="weapon"
 2d_physics/layer_5="area_damager"
 2d_physics/layer_6="character_hitbox"
+2d_physics/layer_11="water"
 
 [rendering]
 

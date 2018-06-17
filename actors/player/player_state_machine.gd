@@ -1,6 +1,6 @@
 extends Node
 
-signal state_changed(states_stack)
+signal state_changed(current_state)
 
 var states_stack = []
 var current_state = null
@@ -62,7 +62,7 @@ func _change_state(state_name):
 	current_state = states_stack[0]
 	if state_name != "previous":
 		current_state.enter()
-	emit_signal("state_changed", states_stack)
+	emit_signal("state_changed", current_state)
 
 func _on_Health_health_depleted():
 	_change_state("die")

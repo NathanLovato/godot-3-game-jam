@@ -1,4 +1,4 @@
-extends "res://utils/states/state2d.gd"
+extends "../../weapon.gd"
 
 export(float) var SPEED = 400.0
 
