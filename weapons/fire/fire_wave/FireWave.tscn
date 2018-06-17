@@ -1,19 +1,24 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://weapons/fire/fire_wave/fire_wave.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/fire_wave/particles/RadiateFire.tscn" type="PackedScene" id=2]
-[ext_resource path="res://weapons/damage_areas/TickingDamager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/damage_areas/damager_spawner/DamagerSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/damage_areas/self_destructing_damager/SelfDestructingDamager.tscn" type="PackedScene" id=4]
 
 [node name="FireWave" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+TEMPERATURE_COST = 0.0
+HEATING_RATE = 0.0
 
 [node name="RadiateFire" parent="." index="0" instance=ExtResource( 2 )]
 
 emitting = false
 active = false
 
-[node name="TickingDamager" parent="." index="1" instance=ExtResource( 3 )]
+[node name="DamagerSpawner" parent="." index="1" instance=ExtResource( 3 )]
+
+Damager = ExtResource( 4 )
 
 

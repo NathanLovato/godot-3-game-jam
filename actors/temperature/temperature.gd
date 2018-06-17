@@ -4,6 +4,7 @@ signal temperature_changed(percentage)
 
 export(float) var MAX_RATE = 20.0
 export(float) var BASE_COOLING_RATE = 4.0
+export(float) var MAX_TEMPERATURE = 110.0
 
 var temperature = 0.0
 
@@ -19,7 +20,7 @@ func _process(delta):
 	rate -= BASE_COOLING_RATE
 	
 	var new_temperature = temperature + rate * delta
-	new_temperature = clamp(new_temperature, 0.0, 100.0)
+	new_temperature = clamp(new_temperature, 0.0, MAX_TEMPERATURE)
 	if new_temperature == temperature:
 		return
 	
@@ -28,7 +29,7 @@ func _process(delta):
 
 func increase(amount):
 	temperature += amount
-	temperature = min(temperature, 100.0)
+	temperature = min(temperature, MAX_TEMPERATURE)
 	emit_signal("temperature_changed", temperature)
 
 func decrease(amount):
@@ -44,3 +45,5 @@ func _on_WaterDetector_water_exited(area):
 
 func _on_WeaponStateMachine_weapon_changed(new_weapon):
 	_weapon = new_weapon
+	if new_weapon:
+		increase(new_weapon.TEMPERATURE_COST)

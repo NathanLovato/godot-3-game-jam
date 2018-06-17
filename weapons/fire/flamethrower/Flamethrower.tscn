@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://weapons/fire/flamethrower/flamethrower.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/flamethrower/particles/Flamethrower.tscn" type="PackedScene" id=2]
-[ext_resource path="res://weapons/damage_areas/Damager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://weapons/damage_areas/damager_shape_spawner.gd" type="Script" id=4]
-[ext_resource path="res://weapons/damage_areas/collision_shapes/MovingCollisionCircle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapons/damage_areas/damager_spawner/DamagerSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/damage_areas/moving_damager/MovingDamager.tscn" type="PackedScene" id=4]
 
-[node name="Flamethrower" type="Node2D"]
+[node name="Flamethrower" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
+TEMPERATURE_COST = 0.0
+HEATING_RATE = 0.0
 SPEED = 400.0
 
 [node name="Particles" parent="." index="0" instance=ExtResource( 2 )]
@@ -19,17 +20,6 @@ active = false
 
 [node name="DamagerSpawner" parent="." index="1" instance=ExtResource( 3 )]
 
-script = ExtResource( 4 )
-_sections_unfolded = [ "Collision", "Transform" ]
-Collider = ExtResource( 5 )
-
-[node name="SpawnTimer" type="Timer" parent="DamagerSpawner" index="0"]
-
-process_mode = 1
-wait_time = 0.2
-one_shot = false
-autostart = false
-
-[connection signal="timeout" from="DamagerSpawner/SpawnTimer" to="DamagerSpawner" method="_on_SpawnTimer_timeout"]
+Damager = ExtResource( 4 )
 
 

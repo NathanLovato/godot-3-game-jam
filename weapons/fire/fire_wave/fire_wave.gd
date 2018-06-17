@@ -11,7 +11,7 @@ func _ready():
 
 func set_active(value):
 	$RadiateFire.active = value
-	$TickingDamager.active = value
+	$DamagerSpawner.active = value
 
 func handle_input(event):
 	if event.is_action_released("mouse_left") or event.is_action_released("mouse_right"):

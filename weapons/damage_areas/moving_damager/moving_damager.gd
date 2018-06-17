@@ -1,4 +1,4 @@
-extends CollisionShape2D
+extends "../damage_source.gd"
 
 var SPEED = 500
 var LIFETIME = 0.8

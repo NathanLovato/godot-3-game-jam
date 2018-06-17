@@ -7,7 +7,6 @@
 [ext_resource path="res://weapons/fire/fireball/particles/sprites/circle.png" type="Texture" id=5]
 [ext_resource path="res://vfx/particles/assets/gradient_ramps/sparkles.tres" type="Gradient" id=6]
 
-
 [sub_resource type="GradientTexture" id=1]
 
 flags = 4
@@ -115,7 +114,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Gravity", "Scale" ]
 
-[node name="Fireball" type="Particles2D" index="0"]
+[node name="FireballParticles" type="Particles2D" index="0"]
 
 emitting = true
 amount = 140

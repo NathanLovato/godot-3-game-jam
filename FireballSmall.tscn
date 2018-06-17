@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://weapons/fire/fireball/fireball.gd" type="Script" id=1]
+[ext_resource path="res://weapons/fire/fireball/fireball_projectile.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/fireball/particles/explosions/Explosion.tscn" type="PackedScene" id=2]
-[ext_resource path="res://weapons/fire/fireball/particles/fireball/Fireball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://FireballParticles.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 31.9831
 
-[node name="Fireball" type="Area2D"]
+[node name="FireballSmall" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

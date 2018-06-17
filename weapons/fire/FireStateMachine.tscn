@@ -1,28 +1,43 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://weapons/fire/fire_state_machine.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/fireball/FireballThrower.tscn" type="PackedScene" id=2]
-[ext_resource path="res://weapons/fire/flamethrower/Flamethrower.tscn" type="PackedScene" id=3]
-[ext_resource path="res://weapons/fire/fire_wave/FireWave.tscn" type="PackedScene" id=4]
+[ext_resource path="res://FireballSmall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/fire/fireball/FireballBig.tscn" type="PackedScene" id=4]
+[ext_resource path="res://weapons/fire/flamethrower/Flamethrower.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapons/fire/fire_wave/FireWave.tscn" type="PackedScene" id=6]
 
 [node name="WeaponStateMachine" type="Node2D"]
 
 script = ExtResource( 1 )
 
-[node name="FireballThrower" parent="." index="0" instance=ExtResource( 2 )]
+[node name="FireballSmall" parent="." index="0" instance=ExtResource( 2 )]
 
 position = Vector2( 0, 0 )
 TEMPERATURE_COST = 5.0
-HEATING_RATE = 0.0
+Fireball = ExtResource( 3 )
 
-[node name="Flamethrower" parent="." index="1" instance=ExtResource( 3 )]
+[node name="FireballBig" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 0, 0 )
+TEMPERATURE_COST = 12.0
+Fireball = ExtResource( 4 )
+
+[node name="Flamethrower" parent="." index="2" instance=ExtResource( 5 )]
 
 TEMPERATURE_COST = 0.0
 HEATING_RATE = 10.0
 
-[node name="FireWave" parent="." index="2" instance=ExtResource( 4 )]
+[node name="FireWave" parent="." index="3" instance=ExtResource( 6 )]
 
 TEMPERATURE_COST = 0.0
 HEATING_RATE = 30.0
+
+[node name="FireballChargeTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = true
+autostart = false
 
 

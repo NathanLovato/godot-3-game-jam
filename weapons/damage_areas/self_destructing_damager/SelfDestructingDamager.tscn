@@ -1,16 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://weapons/damage_areas/ticking_damager.gd" type="Script" id=1]
-
-
-
+[ext_resource path="res://weapons/damage_areas/self_destructing_damager/self_destructing_damager.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 192.0
 
-[node name="TickingDamager" type="Area2D"]
+[node name="SelfDestructingDamager" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -23,7 +20,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-damage = 2
+damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
@@ -32,9 +29,9 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="." index="1"]
 
 process_mode = 1
-wait_time = 0.5
-one_shot = false
-autostart = false
+wait_time = 0.1
+one_shot = true
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

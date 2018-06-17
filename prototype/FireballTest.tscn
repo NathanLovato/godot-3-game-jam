@@ -6,7 +6,7 @@
 [ext_resource path="res://interface/temperature/bar/TemperatureBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://environment/water/WaterArea.tscn" type="PackedScene" id=5]
 
-[node name="FireballTest" type="Node" index="0"]
+[node name="FireballTest" type="Node"]
 
 [node name="Walls" type="StaticBody2D" parent="." index="0"]
 
@@ -48,7 +48,7 @@ sort_enabled = true
 
 [node name="Player" parent="YSort" index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 896, 480 )
+position = Vector2( 896, 544 )
 
 [node name="Monster" parent="YSort" index="1" instance=ExtResource( 2 )]
 
@@ -79,26 +79,31 @@ size_flags_vertical = 1
 
 [node name="TemperatureTestLabel" parent="Interface" index="0" instance=ExtResource( 3 )]
 
-margin_left = 576.0
-margin_top = 128.0
-margin_right = 719.0
-margin_bottom = 188.0
+margin_left = 96.0
+margin_top = 96.0
+margin_right = 239.0
+margin_bottom = 156.0
 temperature_node_path = NodePath("../../YSort/Player/Temperature")
 
 [node name="TemperatureBar" parent="Interface" index="1" instance=ExtResource( 4 )]
 
-margin_left = 192.0
+margin_left = 96.0
 margin_top = 768.0
-margin_right = 406.0
+margin_right = 310.0
 margin_bottom = 982.0
 
 [node name="WaterArea" parent="." index="3" instance=ExtResource( 5 )]
 
-position = Vector2( 1184, 672 )
+position = Vector2( 1440, 640 )
 
-[connection signal="temperature_changed" from="YSort/Player/Temperature" to="Interface/TemperatureTestLabel" method="_on_Temperature_temperature_changed"]
+[node name="WaterArea2" parent="." index="4" instance=ExtResource( 5 )]
+
+position = Vector2( 480, 256 )
+COOLING_RATE = 20.0
 
 [connection signal="temperature_changed" from="YSort/Player/Temperature" to="Interface/TemperatureBar" method="_on_Player_temperature_changed"]
+
+[connection signal="temperature_changed" from="YSort/Player/Temperature" to="Interface/TemperatureTestLabel" method="_on_Temperature_temperature_changed"]
 
 
 [editable path="YSort/Player"]

@@ -11,14 +11,16 @@ func _on_Fireball_body_entered(body):
 	explode()
 
 func _on_Fireball_area_entered(area):
-	print('hey')
 	explode()
 
 func explode():
-	set_physics_process(false)
-	$Fireball.active = false
+	set_active(false)
 	
 	var explosion_node = Explosion.instance()
 	add_child(explosion_node)
-	
 	get_tree().create_timer(explosion_node.lifetime * 2.0).connect("timeout", self, "queue_free")
+
+func set_active(value):
+	set_physics_process(value)
+	$CollisionShape2D.disabled = value
+	$Fireball.active = value

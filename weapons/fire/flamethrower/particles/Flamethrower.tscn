@@ -5,7 +5,6 @@
 [ext_resource path="res://vfx/particles/particles_toggle.gd" type="Script" id=3]
 [ext_resource path="res://vfx/particles/assets/gradient_ramps/sparkles.tres" type="Gradient" id=4]
 
-
 [sub_resource type="GradientTexture" id=1]
 
 flags = 4
@@ -66,7 +65,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Initial Velocity", "Scale", "Spread" ]
 
-[node name="Flamethrower" type="Particles2D" index="0"]
+[node name="Flamethrower" type="Particles2D"]
 
 emitting = true
 amount = 140
