@@ -7,10 +7,7 @@ path="res://.import/circle.png-2f7b7e34303915e4eb5cee231f70cd34.stex"
 [deps]
 
 source_file="res://weapons/fire/fireball/particles/sprites/circle.png"
-source_md5="edf71d262a50b3772485d6c0265974b6"
-
 dest_files=[ "res://.import/circle.png-2f7b7e34303915e4eb5cee231f70cd34.stex" ]
-dest_md5="f72ef3d3b04f003f8fa38fc4bf98508e"
 
 [params]
 

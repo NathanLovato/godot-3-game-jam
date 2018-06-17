@@ -7,10 +7,7 @@ path="res://.import/smoke_clouds.png-bf54a01e40d0c509aad26aa1cea973a7.stex"
 [deps]
 
 source_file="res://weapons/fire/fireball/particles/sprites/smoke_clouds.png"
-source_md5="8bab9cb1b45d767f321ccf31fc2d3386"
-
 dest_files=[ "res://.import/smoke_clouds.png-bf54a01e40d0c509aad26aa1cea973a7.stex" ]
-dest_md5="32a6c8b820429138a9ebebc2f5b3df9d"
 
 [params]
 

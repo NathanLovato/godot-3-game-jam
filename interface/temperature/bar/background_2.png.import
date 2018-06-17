@@ -7,10 +7,7 @@ path="res://.import/background_2.png-154bdcfc0178ff906ab007b8c2c2a2d5.stex"
 [deps]
 
 source_file="res://interface/temperature/bar/background_2.png"
-source_md5="fea30eec5bee2b647562db61eecb13f6"
-
 dest_files=[ "res://.import/background_2.png-154bdcfc0178ff906ab007b8c2c2a2d5.stex" ]
-dest_md5="aa8190dc17d65b4925c3145d8718734d"
 
 [params]
 
