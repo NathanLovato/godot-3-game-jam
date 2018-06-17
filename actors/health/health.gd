@@ -29,23 +29,28 @@ func _change_status(new_status):
 	emit_signal('status_changed', new_status)
 
 func take_damage_from(source):
+	take_damage(source.damage)
+	if not source.effect:
+		return
+	apply_status(source.effect)
+
+func take_damage(amount):
 	if health == 0 or status == GlobalConstants.STATUS_INVINCIBLE:
 		return
-	health -= source.damage
+	health -= amount
 	health = max(0, health)
 	if health == 0:
 		emit_signal("health_depleted")
 		return
 	else:
-		emit_signal("took_damage", source.damage)
-	print("%s got hit and took %s damage. Health: %s/%s" % [get_name(), source.damage, health, max_health])
+		emit_signal("took_damage", amount)
+#	print("%s got hit and took %s damage. Health: %s/%s" % [get_name(), amount, health, max_health])
 
-	if not source.effect:
-		return
-	match source.effect[0]:
+func apply_status(effect):
+	match effect[0]:
 		GlobalConstants.STATUS_POISONED:
 			_change_status(GlobalConstants.STATUS_POISONED)
-			poison_cycles = source.effect[1]
+			poison_cycles = effect[1]
 
 func heal(amount):
 	health += amount
@@ -60,3 +65,6 @@ func _on_PoisonTimer_timeout():
 		_change_status(GlobalConstants.STATUS_NONE)
 		return
 	$PoisonTimer.start()
+
+func _on_WeaponStateMachine_exploded():
+	take_damage(10)

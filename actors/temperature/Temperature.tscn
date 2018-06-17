@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/temperature/temperature.gd" type="Script" id=1]
+[ext_resource path="res://actors/temperature/RecoveryCooler.tscn" type="PackedScene" id=2]
 
-[node name="Temperature" type="Node"]
+[node name="Temperature" type="Node" index="0"]
 
 script = ExtResource( 1 )
 MAX_RATE = 20.0
 BASE_COOLING_RATE = 4.0
-MAX_TEMPERATURE = 110.0
+MAX_TEMPERATURE = 100.0
+temperature = 0.0
+
+[node name="RecoveryCooler" parent="." index="0" instance=ExtResource( 2 )]
 
 

@@ -6,7 +6,7 @@
 [ext_resource path="res://interface/temperature/bar/TemperatureBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://environment/water/WaterArea.tscn" type="PackedScene" id=5]
 
-[node name="FireballTest" type="Node"]
+[node name="FireballTest" type="Node" index="0"]
 
 [node name="Walls" type="StaticBody2D" parent="." index="0"]
 
@@ -62,22 +62,15 @@ position = Vector2( 1408, 896 )
 
 position = Vector2( 1408, 288 )
 
-[node name="Interface" type="Control" parent="." index="2"]
+[node name="InterfaceLayer" type="CanvasLayer" parent="." index="2"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="TemperatureTestLabel" parent="Interface" index="0" instance=ExtResource( 3 )]
+[node name="TemperatureTestLabel" parent="InterfaceLayer" index="0" instance=ExtResource( 3 )]
 
 margin_left = 96.0
 margin_top = 96.0
@@ -85,7 +78,7 @@ margin_right = 239.0
 margin_bottom = 156.0
 temperature_node_path = NodePath("../../YSort/Player/Temperature")
 
-[node name="TemperatureBar" parent="Interface" index="1" instance=ExtResource( 4 )]
+[node name="TemperatureBar" parent="InterfaceLayer" index="1" instance=ExtResource( 4 )]
 
 margin_left = 96.0
 margin_top = 768.0
@@ -101,9 +94,9 @@ position = Vector2( 1440, 640 )
 position = Vector2( 480, 256 )
 COOLING_RATE = 20.0
 
-[connection signal="temperature_changed" from="YSort/Player/Temperature" to="Interface/TemperatureBar" method="_on_Player_temperature_changed"]
+[connection signal="temperature_changed" from="YSort/Player/Temperature" to="InterfaceLayer/TemperatureTestLabel" method="_on_Temperature_temperature_changed"]
 
-[connection signal="temperature_changed" from="YSort/Player/Temperature" to="Interface/TemperatureTestLabel" method="_on_Temperature_temperature_changed"]
+[connection signal="temperature_changed" from="YSort/Player/Temperature" to="InterfaceLayer/TemperatureBar" method="_on_Player_temperature_changed"]
 
 
 [editable path="YSort/Player"]

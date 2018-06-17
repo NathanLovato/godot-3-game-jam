@@ -10,7 +10,6 @@ func take_damage_from(attacker):
 		return
 	if $StateMachine.current_state in [$StateMachine/Stagger, $StateMachine/Dash]:
 		return
-#	cancel_attack()
 	$StateMachine/Stagger.knockback_direction = (attacker.global_position - global_position).normalized()
 	$Health.take_damage_from(attacker)
 
@@ -26,3 +25,6 @@ func set_look_direction(value):
 func move(velocity):
 	move_and_slide(velocity)
 	emit_signal("position_changed", global_position)
+
+func _on_Health_health_depleted():
+	set_controlable(false)

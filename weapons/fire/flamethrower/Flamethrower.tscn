@@ -9,8 +9,8 @@
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
-TEMPERATURE_COST = 0.0
-HEATING_RATE = 0.0
+TEMPERATURE_COST = 2.0
+HEATING_RATE = 12.0
 SPEED = 400.0
 
 [node name="Particles" parent="." index="0" instance=ExtResource( 2 )]

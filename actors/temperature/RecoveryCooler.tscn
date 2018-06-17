@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/temperature/cooling_source.gd" type="Script" id=1]
+
+[node name="RecoveryCooler" type="Node" index="0"]
+
+script = ExtResource( 1 )
+COOLING_RATE = 100.0
+
+

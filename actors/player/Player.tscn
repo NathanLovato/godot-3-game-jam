@@ -1,20 +1,21 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://prototype/player.png" type="Texture" id=2]
-[ext_resource path="res://weapons/fire/FireStateMachine.tscn" type="PackedScene" id=3]
-[ext_resource path="res://actors/hit_box/HitBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/player/hitbox_shape.tres" type="Shape2D" id=5]
-[ext_resource path="res://actors/water_detector/WaterDetector.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/temperature/Temperature.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actors/health/Health.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/hit_box/HitBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/player/hitbox_shape.tres" type="Shape2D" id=4]
+[ext_resource path="res://actors/water_detector/WaterDetector.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/temperature/Temperature.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/health/Health.tscn" type="PackedScene" id=7]
+[ext_resource path="res://weapons/fire/FireStateMachine.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/player/player_state_machine.gd" type="Script" id=9]
 [ext_resource path="res://actors/player/states/motion/idle.gd" type="Script" id=10]
 [ext_resource path="res://actors/player/states/motion/move.gd" type="Script" id=11]
 [ext_resource path="res://actors/player/states/combat/stagger.gd" type="Script" id=12]
-[ext_resource path="res://actors/player/states/motion/dash.gd" type="Script" id=13]
-[ext_resource path="res://utils/states/state.gd" type="Script" id=14]
-[ext_resource path="res://actors/player/states/die.gd" type="Script" id=15]
+[ext_resource path="res://actors/player/states/combat/recovery.gd" type="Script" id=13]
+[ext_resource path="res://actors/player/states/motion/dash.gd" type="Script" id=14]
+[ext_resource path="res://utils/states/state.gd" type="Script" id=15]
+[ext_resource path="res://actors/player/states/die.gd" type="Script" id=16]
 
 [sub_resource type="Animation" id=1]
 
@@ -107,7 +108,26 @@ length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=7]
+
+resource_name = "recovery"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.820313, 0.339661, 0.339661, 1 ), Color( 1, 1, 1, 1 ), Color( 0.820313, 0.339661, 0.339661, 1 ), Color( 1, 1, 1, 1 ), Color( 0.820313, 0.339661, 0.339661, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
 
 length = 0.6
 loop = false
@@ -125,21 +145,20 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
-position = Vector2( 865.331, 529.041 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
@@ -154,30 +173,29 @@ playback_speed = 1.0
 anims/SETUP = SubResource( 1 )
 anims/die = SubResource( 2 )
 anims/idle = SubResource( 3 )
-anims/stagger = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/recovery = SubResource( 7 )
+anims/stagger = SubResource( 8 )
+anims/walk = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="Skin" type="Position2D" parent="." index="1"]
 
+_sections_unfolded = [ "Visibility" ]
+
 [node name="Body" type="Sprite" parent="Skin" index="0"]
 
 position = Vector2( 0, -31.5144 )
 texture = ExtResource( 2 )
-offset = Vector2( 1.40758, -3.05176e-05 )
+offset = Vector2( 1.40758, -3.05176e-005 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="WeaponStateMachine" parent="." index="2" instance=ExtResource( 3 )]
-
-_sections_unfolded = [ "Transform" ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
 
 build_mode = 0
 polygon = PoolVector2Array( -20, 0, -20, -20, 20, -20, 20, 0 )
 
-[node name="HitBox" parent="." index="4" instance=ExtResource( 4 )]
+[node name="HitBox" parent="." index="3" instance=ExtResource( 3 )]
 
 editor/display_folded = true
 collision_layer = 32
@@ -187,18 +205,24 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Transform" ]
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 
 position = Vector2( 0, -15.9878 )
-shape = ExtResource( 5 )
+shape = ExtResource( 4 )
 
-[node name="WaterDetector" parent="." index="5" instance=ExtResource( 6 )]
+[node name="WaterDetector" parent="." index="4" instance=ExtResource( 5 )]
 
 collision_layer = 0
 collision_mask = 1024
 
-[node name="Temperature" parent="." index="6" instance=ExtResource( 7 )]
+[node name="Temperature" parent="." index="5" instance=ExtResource( 6 )]
 
-[node name="Health" parent="." index="7" instance=ExtResource( 8 )]
+temperature = 80.0
+
+[node name="Health" parent="." index="6" instance=ExtResource( 7 )]
 
 max_health = 20
+
+[node name="FireStateMachine" parent="." index="7" instance=ExtResource( 8 )]
+
+_sections_unfolded = [ "Transform" ]
 
 [node name="StateMachine" type="Node" parent="." index="8"]
 
@@ -218,9 +242,13 @@ SPEED_SLOW = 300.0
 
 script = ExtResource( 12 )
 
-[node name="Dash" type="Node" parent="StateMachine" index="3"]
+[node name="Recovery" type="Node" parent="StateMachine" index="3"]
 
 script = ExtResource( 13 )
+
+[node name="Dash" type="Node" parent="StateMachine" index="4"]
+
+script = ExtResource( 14 )
 SPEED = 1300
 MAX_COUNT = 2
 
@@ -238,25 +266,39 @@ wait_time = 0.5
 one_shot = true
 autostart = false
 
-[node name="Explode" type="Node" parent="StateMachine" index="4"]
-
-script = ExtResource( 14 )
-
-[node name="Die" type="Node" parent="StateMachine" index="5"]
+[node name="Explode" type="Node" parent="StateMachine" index="5"]
 
 script = ExtResource( 15 )
 
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
+[node name="Die" type="Node" parent="StateMachine" index="6"]
 
-[connection signal="weapon_changed" from="WeaponStateMachine" to="Temperature" method="_on_WeaponStateMachine_weapon_changed"]
+script = ExtResource( 16 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
 
 [connection signal="water_entered" from="WaterDetector" to="Temperature" method="_on_WaterDetector_water_entered"]
 
 [connection signal="water_exited" from="WaterDetector" to="Temperature" method="_on_WaterDetector_water_exited"]
 
+[connection signal="overheated" from="Temperature" to="FireStateMachine" method="_on_Temperature_overheated"]
+
+[connection signal="health_depleted" from="Health" to="StateMachine" method="_on_Health_health_depleted"]
+
 [connection signal="health_depleted" from="Health" to="." method="_on_Health_health_depleted"]
 
+[connection signal="health_depleted" from="Health" to="FireStateMachine" method="_on_Health_health_depleted"]
+
 [connection signal="took_damage" from="Health" to="StateMachine" method="_on_Health_took_damage"]
+
+[connection signal="exploded" from="FireStateMachine" to="Health" method="_on_WeaponStateMachine_exploded"]
+
+[connection signal="exploded" from="FireStateMachine" to="StateMachine" method="_on_WeaponStateMachine_exploded"]
+
+[connection signal="weapon_changed" from="FireStateMachine" to="Temperature" method="_on_WeaponStateMachine_weapon_changed"]
+
+[connection signal="state_changed" from="StateMachine" to="Temperature" method="_on_StateMachine_state_changed"]
+
+[connection signal="state_changed" from="StateMachine" to="FireStateMachine" method="_on_StateMachine_state_changed"]
 
 [connection signal="timeout" from="StateMachine/Dash/Timer" to="StateMachine/Dash" method="_on_Timer_timeout"]
 

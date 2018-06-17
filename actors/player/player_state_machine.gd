@@ -11,6 +11,7 @@ onready var states_map = {
 	"move": $Move,
 	"dash": $Dash,
 	"stagger": $Stagger,
+	"recovery": $Recovery,
 	"die": $Die,
 }
 
@@ -41,7 +42,6 @@ func _change_state(state_name):
 	
 	if state_name == "die":
 		_state_machine_active = false
-		set_controlable(false)
 		states_stack = []
 		states_stack.push_front(states_map[state_name])
 		current_state = states_stack[0]
@@ -68,4 +68,7 @@ func _on_Health_health_depleted():
 	_change_state("die")
 
 func _on_Health_took_damage(amount):
-	_change_state('stagger')
+	_change_state("stagger")
+
+func _on_WeaponStateMachine_exploded():
+	_change_state("recovery")
