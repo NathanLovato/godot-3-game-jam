@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Fireballs"
-run/main_scene="res://prototype/FireballTest.tscn"
+run/main_scene="res://prototype/Prototype2Gameplay.tscn"
 config/icon="res://icon.png"
 
 [autoload]

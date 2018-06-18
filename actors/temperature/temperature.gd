@@ -15,7 +15,7 @@ var _weapon = null
 var _cooling_sources = []
 var _overheated = false
 var _burning = false
-var _recovering = false
+var _recovering = false setget set_recovering
 
 func _process(delta):
 	var rate = calculate_heating_rate()
@@ -38,6 +38,9 @@ func _process(delta):
 	if temperature < BURNING_THRESHOLD and _burning:
 		_burning = false
 		emit_signal("burning", _burning)
+	
+	if _recovering and temperature == 0.0:
+		self._recovering = false
 
 func calculate_heating_rate():
 	var rate = 0.0
@@ -71,8 +74,11 @@ func _on_WeaponStateMachine_weapon_changed(new_weapon):
 
 func _on_StateMachine_state_changed(current_state):
 	if current_state.name == "Recovery":
-		_recovering = true
+		self._recovering = true
+
+func set_recovering(value):
+	_recovering = value
+	if _recovering:
 		_cooling_sources.append($RecoveryCooler)
-	elif _recovering:
-		_recovering = false
-		_cooling_sources.remove(_cooling_sources.find($RecoveryCooler))
+	else:
+		_cooling_sources = []

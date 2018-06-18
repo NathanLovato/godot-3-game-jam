@@ -37,6 +37,7 @@ func take_damage(amount):
 		return
 	else:
 		emit_signal("took_damage", amount)
+		emit_signal("health_changed", health)
 #	print("%s got hit and took %s damage. Health: %s/%s" % [get_name(), amount, health, max_health])
 
 func apply_status(effect):
