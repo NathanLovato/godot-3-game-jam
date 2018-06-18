@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalConstants="*res://utils/autoload/global_constants.gd"
+Steering="*res://utils/autoload/steering.gd"
 
 [display]
 
