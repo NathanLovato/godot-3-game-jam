@@ -200,7 +200,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
-extents = Vector2( 40, 40 )
+extents = Vector2( 34.1753, 34.9921 )
 
 [sub_resource type="RectangleShape2D" id=6]
 
@@ -245,11 +245,9 @@ update_scale = true
 
 [node name="HitBox" parent="." index="3" instance=ExtResource( 3 )]
 
-editor/display_folded = true
-
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 
-position = Vector2( 0, -20 )
+position = Vector2( 0, -24.7434 )
 shape = SubResource( 5 )
 
 [node name="Skin" type="Position2D" parent="." index="4"]

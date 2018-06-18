@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/monster/MonsterSpawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://prototype/TemperatureTestLabel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://interface/temperature/bar/TemperatureBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://interface/lifebar/LifebarsBuilder.tscn" type="PackedScene" id=5]
-[ext_resource path="res://environment/water/WaterArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://interface/panels/ControlsPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://interface/panels/IntroPanel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://environment/water/WaterArea.tscn" type="PackedScene" id=8]
 
-[node name="Prototype2Gameplay" type="Node" index="0"]
+[node name="Game" type="Node" index="0"]
 
 [node name="Walls" type="StaticBody2D" parent="." index="0"]
 
@@ -47,26 +49,26 @@ polygon = PoolVector2Array( 0, 0, 1920, 0, 1920, 64, 0, 64 )
 
 [node name="MonsterSpawner" parent="MonsterSpawners" index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 416, 544 )
+position = Vector2( 224, 544 )
 SPAWN_PATH = NodePath("../../YSort")
 
 [node name="MonsterSpawner2" parent="MonsterSpawners" index="1" instance=ExtResource( 1 )]
 
-position = Vector2( 1216, 800 )
+position = Vector2( 1376, 832 )
 SPAWN_PATH = NodePath("../../YSort")
 
 [node name="MonsterSpawner3" parent="MonsterSpawners" index="2" instance=ExtResource( 1 )]
 
-position = Vector2( 1376, 320 )
+position = Vector2( 1472, 256 )
 SPAWN_PATH = NodePath("../../YSort")
 
 [node name="YSort" type="YSort" parent="." index="2"]
 
+editor/display_folded = true
 sort_enabled = true
 
 [node name="Player" parent="YSort" index="0" instance=ExtResource( 2 )]
 
-editor/display_folded = true
 position = Vector2( 896, 544 )
 
 [node name="Temperature" parent="YSort/Player" index="5"]
@@ -75,7 +77,7 @@ temperature = 0.0
 
 [node name="Health" parent="YSort/Player" index="6"]
 
-max_health = 100
+max_health = 50
 
 [node name="InterfaceLayer" type="CanvasLayer" parent="." index="3"]
 
@@ -102,11 +104,15 @@ margin_bottom = 982.0
 
 [node name="LifebarsBuilder" parent="InterfaceLayer" index="2" instance=ExtResource( 5 )]
 
-[node name="WaterArea" parent="." index="4" instance=ExtResource( 6 )]
+[node name="ControlsPanel" parent="InterfaceLayer" index="3" instance=ExtResource( 6 )]
+
+[node name="IntroPanel" parent="InterfaceLayer" index="4" instance=ExtResource( 7 )]
+
+[node name="WaterArea" parent="." index="4" instance=ExtResource( 8 )]
 
 position = Vector2( 1440, 640 )
 
-[node name="WaterArea2" parent="." index="5" instance=ExtResource( 6 )]
+[node name="WaterArea2" parent="." index="5" instance=ExtResource( 8 )]
 
 position = Vector2( 480, 256 )
 
