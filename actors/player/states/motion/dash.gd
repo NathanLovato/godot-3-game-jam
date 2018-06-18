@@ -25,4 +25,3 @@ func _on_Timer_timeout():
 
 func _on_CooldownTimer_timeout():
 	count = 0
-	print("timeout")	

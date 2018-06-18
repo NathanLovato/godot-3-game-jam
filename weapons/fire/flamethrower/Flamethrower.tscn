@@ -20,6 +20,7 @@ active = false
 
 [node name="DamagerSpawner" parent="." index="1" instance=ExtResource( 3 )]
 
+DAMAGE = 2
 Damager = ExtResource( 4 )
 
 

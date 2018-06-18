@@ -45,8 +45,6 @@ polygon = PoolVector2Array( 0, 0, 1920, 0, 1920, 64, 0, 64 )
 
 [node name="MonsterSpawners" type="Node" parent="." index="1"]
 
-editor/display_folded = true
-
 [node name="MonsterSpawner" parent="MonsterSpawners" index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 416, 544 )
@@ -111,7 +109,6 @@ position = Vector2( 1440, 640 )
 [node name="WaterArea2" parent="." index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 480, 256 )
-COOLING_RATE = 20.0
 
 [connection signal="temperature_changed" from="YSort/Player/Temperature" to="InterfaceLayer/TemperatureBar" method="_on_Player_temperature_changed"]
 

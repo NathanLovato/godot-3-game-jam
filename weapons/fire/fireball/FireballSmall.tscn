@@ -2,14 +2,14 @@
 
 [ext_resource path="res://weapons/fire/fireball/fireball_projectile.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/fireball/particles/explosions/Explosion.tscn" type="PackedScene" id=2]
-[ext_resource path="res://FireballParticles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/fire/fireball/FireballParticles.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 31.9831
 
-[node name="FireballSmall" type="Area2D"]
+[node name="FireballSmall" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -17,12 +17,12 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 collision_layer = 8
-collision_mask = 2
+collision_mask = 6
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-damage = 2
+damage = 3
 Explosion = ExtResource( 2 )
 SPEED = 1400.0
 
@@ -32,8 +32,8 @@ SPEED = 1400.0
 
 shape = SubResource( 1 )
 
-[connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 
-[connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 
 

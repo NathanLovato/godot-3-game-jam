@@ -38,9 +38,6 @@ func _process(delta):
 	if temperature < BURNING_THRESHOLD and _burning:
 		_burning = false
 		emit_signal("burning", _burning)
-	
-	if _recovering and temperature == 0.0:
-		self._recovering = false
 
 func calculate_heating_rate():
 	var rate = 0.0
@@ -65,7 +62,9 @@ func _on_WaterDetector_water_entered(area):
 	_cooling_sources.append(area)
 
 func _on_WaterDetector_water_exited(area):
-	_cooling_sources.remove(_cooling_sources.find(area))
+	var area_index = _cooling_sources.find(area)
+	if area_index != -1:
+		_cooling_sources.erase(area)
 
 func _on_WeaponStateMachine_weapon_changed(new_weapon):
 	_weapon = new_weapon
@@ -78,7 +77,12 @@ func _on_StateMachine_state_changed(current_state):
 
 func set_recovering(value):
 	_recovering = value
-	if _recovering:
+	if value:
 		_cooling_sources.append($RecoveryCooler)
+		$RecoveryTimer.start()
 	else:
 		_cooling_sources = []
+		print(_cooling_sources)
+
+func _on_RecoveryTimer_timeout():
+	self._recovering = false

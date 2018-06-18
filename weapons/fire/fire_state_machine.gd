@@ -64,10 +64,6 @@ func _input(event):
 	elif event.is_action_pressed("mouse_right"):
 		_set_weapon_active("flamethrower")
 
-func _on_StateMachine_state_changed(current_state):
-	if current_state.name == "Stagger":
-		_set_weapon_active("")
-
 func _on_Temperature_overheated():
 	if weapon_current == weapons["wave"]:
 		_set_weapon_active("explode")
@@ -83,3 +79,6 @@ func set_controlable(value):
 	_controlable = value
 	set_process_input(value)
 	set_physics_process(value)
+
+func _on_Health_took_hit():
+	_set_weapon_active("")

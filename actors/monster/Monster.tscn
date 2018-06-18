@@ -178,7 +178,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0.875366 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 
 resource_name = "spawn"
 length = 1.0
@@ -197,12 +197,12 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
 extents = Vector2( 40, 40 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30, 30 )
@@ -227,10 +227,12 @@ playback_speed = 1.0
 anims/SETUP = SubResource( 1 )
 anims/die = SubResource( 2 )
 anims/idle = SubResource( 3 )
-anims/spawn = SubResource( 6 )
+anims/spawn = SubResource( 4 )
 blend_times = [  ]
 
 [node name="Health" parent="." index="1" instance=ExtResource( 2 )]
+
+max_health = 18
 
 [node name="InterfaceAnchor" type="RemoteTransform2D" parent="." index="2"]
 
@@ -248,7 +250,7 @@ editor/display_folded = true
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 
 position = Vector2( 0, -20 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Skin" type="Position2D" parent="." index="4"]
 
@@ -268,7 +270,7 @@ collision_layer = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damager" index="0"]
 
 position = Vector2( 0, -20 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="StateMachine" type="Node" parent="." index="6"]
 
@@ -282,13 +284,13 @@ script = ExtResource( 7 )
 [node name="Idle" type="Node" parent="StateMachine" index="1"]
 
 script = ExtResource( 8 )
-FOLLOW_DISTANCE = 400.0
+FOLLOW_DISTANCE = 500.0
 
 [node name="Follow" type="Node" parent="StateMachine" index="2"]
 
 script = ExtResource( 9 )
 MAX_SPEED = 300.0
-MAX_DISTANCE = 400.0
+MAX_DISTANCE = 600.0
 
 [node name="Die" type="Node" parent="StateMachine" index="3"]
 
@@ -298,6 +300,8 @@ script = ExtResource( 10 )
 
 build_mode = 0
 polygon = PoolVector2Array( -20, 0, 20, 0, 20, -30, -20, -30 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
 
 [connection signal="health_depleted" from="Health" to="StateMachine" method="_on_Health_health_depleted"]
 

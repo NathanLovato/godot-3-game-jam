@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://weapons/fire/fireball/fireball_thrower.gd" type="Script" id=1]
-[ext_resource path="res://FireballSmall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://weapons/fire/fireball/FireballSmall.tscn" type="PackedScene" id=2]
+
 
 [node name="FireballThrower" type="Node2D"]
 

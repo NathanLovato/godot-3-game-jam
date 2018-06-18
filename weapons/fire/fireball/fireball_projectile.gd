@@ -7,10 +7,10 @@ var direction = Vector2()
 func _physics_process(delta):
 	position += direction * SPEED * delta
 
-func _on_Fireball_body_entered(body):
+func _on_body_entered(body):
 	explode()
 
-func _on_Fireball_area_entered(area):
+func _on_area_entered(area):
 	explode()
 
 func explode():

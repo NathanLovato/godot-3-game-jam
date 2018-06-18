@@ -2,13 +2,13 @@
 
 [ext_resource path="res://weapons/fire/fire_state_machine.gd" type="Script" id=1]
 [ext_resource path="res://weapons/fire/fireball/FireballThrower.tscn" type="PackedScene" id=2]
-[ext_resource path="res://FireballSmall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/fire/fireball/FireballSmall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://weapons/fire/fireball/FireballBig.tscn" type="PackedScene" id=4]
 [ext_resource path="res://weapons/fire/flamethrower/Flamethrower.tscn" type="PackedScene" id=5]
 [ext_resource path="res://weapons/fire/fire_wave/FireWave.tscn" type="PackedScene" id=6]
 [ext_resource path="res://weapons/fire/explode/ExplodeSpawner.tscn" type="PackedScene" id=7]
 
-[node name="FireStateMachine" type="Node2D" index="0"]
+[node name="FireStateMachine" type="Node2D"]
 
 script = ExtResource( 1 )
 

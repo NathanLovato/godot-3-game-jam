@@ -8,9 +8,21 @@
 script = ExtResource( 1 )
 MAX_RATE = 20.0
 BASE_COOLING_RATE = 4.0
-MAX_TEMPERATURE = 100.0
+MAX_TEMPERATURE = 110.0
+BURNING_THRESHOLD = 80.0
 temperature = 0.0
 
 [node name="RecoveryCooler" parent="." index="0" instance=ExtResource( 2 )]
+
+cooling_rate = 50.0
+
+[node name="RecoveryTimer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="RecoveryTimer" to="." method="_on_RecoveryTimer_timeout"]
 
 

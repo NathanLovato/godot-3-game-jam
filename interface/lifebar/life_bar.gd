@@ -13,7 +13,6 @@ func set_health(value):
 
 func _on_Actor_health_changed(new_health):
 	self.health = new_health
-	print(health)
 
 func _on_Actor_health_depleted():
 	queue_free()

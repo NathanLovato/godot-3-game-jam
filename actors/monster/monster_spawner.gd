@@ -21,7 +21,8 @@ func spawn_monster():
 	new_monster.connect("tree_exited", self, "_on_Monster_tree_exited")
 	get_node(SPAWN_PATH).add_child(new_monster)
 	count += 1
-	
+
+	emit_signal("spawned_monster", new_monster)
 	$SpawnTimer.start()
 
 func _on_SpawnTimer_timeout():

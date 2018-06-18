@@ -217,7 +217,6 @@ collision_mask = 1024
 
 [node name="Temperature" parent="." index="5" instance=ExtResource( 6 )]
 
-BURNING_THRESHOLD = 80.0
 temperature = 80.0
 
 [node name="Health" parent="." index="6" instance=ExtResource( 7 )]
@@ -298,13 +297,15 @@ script = ExtResource( 16 )
 
 [connection signal="overheated" from="Temperature" to="FireStateMachine" method="_on_Temperature_overheated"]
 
-[connection signal="health_depleted" from="Health" to="StateMachine" method="_on_Health_health_depleted"]
+[connection signal="health_depleted" from="Health" to="FireStateMachine" method="_on_Health_health_depleted"]
 
 [connection signal="health_depleted" from="Health" to="." method="_on_Health_health_depleted"]
 
-[connection signal="health_depleted" from="Health" to="FireStateMachine" method="_on_Health_health_depleted"]
+[connection signal="health_depleted" from="Health" to="StateMachine" method="_on_Health_health_depleted"]
 
 [connection signal="took_damage" from="Health" to="StateMachine" method="_on_Health_took_damage"]
+
+[connection signal="took_hit" from="Health" to="FireStateMachine" method="_on_Health_took_hit"]
 
 [connection signal="exploded" from="FireStateMachine" to="Health" method="_on_WeaponStateMachine_exploded"]
 
@@ -313,8 +314,6 @@ script = ExtResource( 16 )
 [connection signal="weapon_changed" from="FireStateMachine" to="Temperature" method="_on_WeaponStateMachine_weapon_changed"]
 
 [connection signal="state_changed" from="StateMachine" to="Temperature" method="_on_StateMachine_state_changed"]
-
-[connection signal="state_changed" from="StateMachine" to="FireStateMachine" method="_on_StateMachine_state_changed"]
 
 [connection signal="timeout" from="StateMachine/Dash/Timer" to="StateMachine/Dash" method="_on_Timer_timeout"]
 
