@@ -47,7 +47,7 @@ func calculate_heating_rate():
 	if _weapon:
 		rate += _weapon.HEATING_RATE
 	for source in _cooling_sources:
-		rate -= source.COOLING_RATE
+		rate -= source.cooling_rate
 	rate -= BASE_COOLING_RATE
 	return rate
 

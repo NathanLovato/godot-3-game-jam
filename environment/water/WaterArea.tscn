@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://environment/water/water_area.gd" type="Script" id=1]
+[ext_resource path="res://prototype/water.png" type="Texture" id=2]
 
 [node name="WaterArea" type="Area2D" index="0"]
 
@@ -15,11 +16,21 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
-COOLING_RATE = 10.0
+BASE_COOLING_RATE = 10.0
+REFILL_RATE = 5.0
+POOL_SIZE = 50.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+[node name="Pivot" type="Node2D" parent="." index="0"]
+
+[node name="Sprite" type="Sprite" parent="Pivot" index="0"]
+
+position = Vector2( -1, -1 )
+scale = Vector2( 1.90625, 1.53125 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1"]
 
 build_mode = 0
-polygon = PoolVector2Array( -128, -96, 128, -96, 128, 96, -128, 96 )
+polygon = PoolVector2Array( -60, -50, 60, -50, 60, 50, -60, 50 )
 
 

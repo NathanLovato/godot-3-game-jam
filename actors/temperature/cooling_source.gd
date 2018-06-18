@@ -1,3 +1,3 @@
 extends Object
 
-export(float) var COOLING_RATE = 10.0
+export(float) var cooling_rate = 10.0

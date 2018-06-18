@@ -43,24 +43,26 @@ position = Vector2( 0, 1024 )
 build_mode = 0
 polygon = PoolVector2Array( 0, 0, 1920, 0, 1920, 64, 0, 64 )
 
-[node name="Node" type="Node" parent="." index="1"]
+[node name="MonsterSpawners" type="Node" parent="." index="1"]
 
-[node name="MonsterSpawner" parent="." index="2" instance=ExtResource( 1 )]
+editor/display_folded = true
+
+[node name="MonsterSpawner" parent="MonsterSpawners" index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 416, 544 )
-SPAWN_PATH = NodePath("../YSort")
+SPAWN_PATH = NodePath("../../YSort")
 
-[node name="MonsterSpawner2" parent="." index="3" instance=ExtResource( 1 )]
+[node name="MonsterSpawner2" parent="MonsterSpawners" index="1" instance=ExtResource( 1 )]
 
 position = Vector2( 1216, 800 )
-SPAWN_PATH = NodePath("../YSort")
+SPAWN_PATH = NodePath("../../YSort")
 
-[node name="MonsterSpawner3" parent="." index="4" instance=ExtResource( 1 )]
+[node name="MonsterSpawner3" parent="MonsterSpawners" index="2" instance=ExtResource( 1 )]
 
 position = Vector2( 1376, 320 )
-SPAWN_PATH = NodePath("../YSort")
+SPAWN_PATH = NodePath("../../YSort")
 
-[node name="YSort" type="YSort" parent="." index="5"]
+[node name="YSort" type="YSort" parent="." index="2"]
 
 sort_enabled = true
 
@@ -77,7 +79,7 @@ temperature = 0.0
 
 max_health = 100
 
-[node name="InterfaceLayer" type="CanvasLayer" parent="." index="6"]
+[node name="InterfaceLayer" type="CanvasLayer" parent="." index="3"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -102,11 +104,11 @@ margin_bottom = 982.0
 
 [node name="LifebarsBuilder" parent="InterfaceLayer" index="2" instance=ExtResource( 5 )]
 
-[node name="WaterArea" parent="." index="7" instance=ExtResource( 6 )]
+[node name="WaterArea" parent="." index="4" instance=ExtResource( 6 )]
 
 position = Vector2( 1440, 640 )
 
-[node name="WaterArea2" parent="." index="8" instance=ExtResource( 6 )]
+[node name="WaterArea2" parent="." index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 480, 256 )
 COOLING_RATE = 20.0
