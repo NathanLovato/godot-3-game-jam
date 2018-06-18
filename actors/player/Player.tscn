@@ -241,6 +241,7 @@ _sections_unfolded = [ "Transform" ]
 
 editor/display_folded = true
 script = ExtResource( 9 )
+START_STATE = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0"]
 
