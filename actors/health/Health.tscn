@@ -2,13 +2,12 @@
 
 [ext_resource path="res://actors/health/health.gd" type="Script" id=1]
 
-
-[node name="Health" type="Node"]
+[node name="Health" type="Node" index="0"]
 
 script = ExtResource( 1 )
 max_health = 9
 
-[node name="PoisonTimer" type="Timer" parent="." index="0"]
+[node name="BurnTimer" type="Timer" parent="." index="0"]
 
 process_mode = 1
 wait_time = 0.6

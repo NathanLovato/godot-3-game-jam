@@ -1,17 +1,20 @@
 extends Node
 
-signal temperature_changed(percentage)
+signal temperature_changed(new_temperature)
+signal burning(value)
 signal overheated
 
 export(float) var MAX_RATE = 20.0
 export(float) var BASE_COOLING_RATE = 4.0
 export(float) var MAX_TEMPERATURE = 110.0
+export(float) var BURNING_THRESHOLD = 80.0
 
 export(float) var temperature = 0.0
 
 var _weapon = null
 var _cooling_sources = []
 var _overheated = false
+var _burning = false
 var _recovering = false
 
 func _process(delta):
@@ -28,6 +31,13 @@ func _process(delta):
 		emit_signal("overheated")
 	elif temperature < MAX_TEMPERATURE and _overheated:
 		_overheated = false
+
+	if temperature > BURNING_THRESHOLD and not _burning:
+		_burning = true
+		emit_signal("burning", _burning)
+	if temperature < BURNING_THRESHOLD and _burning:
+		_burning = false
+		emit_signal("burning", _burning)
 
 func calculate_heating_rate():
 	var rate = 0.0
@@ -66,4 +76,3 @@ func _on_StateMachine_state_changed(current_state):
 	elif _recovering:
 		_recovering = false
 		_cooling_sources.remove(_cooling_sources.find($RecoveryCooler))
-	
